@@ -2,16 +2,17 @@
 // So we don't have ridiculous errors.
 window.onload = function() {
   // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+const firebaseConfig = {
+  apiKey: "AIzaSyB_5DzP0_8lTvbuP04rWuQ5CjSBYjE4IAE",
+  authDomain: "jesterchat-17016.firebaseapp.com",
+  projectId: "jesterchat-17016",
+  storageBucket: "jesterchat-17016.appspot.com",
+  messagingSenderId: "765039171744",
+  appId: "1:765039171744:web:ecd4f0942d7b0b166e11c5"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
   // This is very IMPORTANT!! We're going to use "db" a lot.
   var db = firebase.database()
   // We're going to use oBjEcT OrIeNtEd PrOgRaMmInG. Lol
@@ -39,7 +40,7 @@ window.onload = function() {
 
       var title = document.createElement('h1')
       title.setAttribute('id', 'title')
-      title.textContent = 'MemeChat 2.0'
+      title.textContent = 'JesterChat'
 
       title_inner_container.append(title)
       title_container.append(title_inner_container)
@@ -67,8 +68,8 @@ window.onload = function() {
 
       var join_input = document.createElement('input')
       join_input.setAttribute('id', 'join_input')
-      join_input.setAttribute('maxlength', 15)
-      join_input.placeholder = 'No.... It\'s Patrick Star'
+      join_input.setAttribute('maxlength', 100)
+      join_input.placeholder = 'Uhh.... \ Name?'
       // Every time we type into the join_input
       join_input.onkeyup  = function(){
         // If the input we have is longer that 0 letters

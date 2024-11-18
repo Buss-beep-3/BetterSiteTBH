@@ -1,106 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JesterKing is losing it all...</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      background-color: #000; /* Set a background color */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blink Center Home</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            overflow: hidden;
+        }
 
-    video {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      z-index: -100;
-      transform: translateX(-50%) translateY(-50%);
-      display: none;
-    }
+        h1 {
+            font-size: 2.5rem;
+        }
 
-    #button-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      z-index: 1;
-    }
+        p {
+            font-size: 1.2rem;
+        }
 
-    #play-button {
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 20px;
-      cursor: pointer;
-      filter: blur(10px);
-      transition: filter 0.3s;
-    }
+        .loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: black;
+            color: white;
+            font-size: 2rem;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* Fade transition */
+        }
 
-    #play-button:hover {
-      filter: blur(0);
-    }
+        .loading-screen.active {
+            display: flex;
+            opacity: 1;
+        }
 
-    #new-page-button {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      background-color: #483248;
-      color: green;
-      border: none;
-      padding: 15px 30px;
-      font-size: 20px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      display: none;
-    }
+        .loading-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+        }
 
-    #new-page-button:hover {
-      background-color: #2980b9;
-    }
-  </style>
+        .content {
+            display: block;
+        }
+
+        .enter-button {
+            background-color: #444;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .enter-button:hover {
+            background-color: #555;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
-
 <body>
-  <video id="background-video" loop>
-    <!-- Replace 'your-video-source.mp4' with the path to your video file -->
-    <source src="audio/yourlosingitall.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+    <div class="content" id="homeContent">
+        <h1>Hello! Welcome to the Blink Center!</h1>
+        <p>Press TAB to enter</p>
+        <!-- Button for mobile users -->
+        <button class="enter-button" id="enterButton">Press to Enter</button>
+    </div>
 
-  <div id="button-container">
-    <button id="play-button" onclick="playVideo()">Load Assets</button>
-    <button id="new-page-button" onclick="goToNewPage()">Go to Main Page</button>
-  </div>
+    <div class="loading-screen" id="loadingScreen1">
+        <p class="loading-text">Loading...</p>
+    </div>
 
-  <script>
-    function playVideo() {
-      var video = document.getElementById('background-video');
-      var playButton = document.getElementById('play-button');
-      var newPageButton = document.getElementById('new-page-button');
+    <div class="loading-screen" id="loadingScreen2">
+        <p class="loading-text">Loading...</p>
+    </div>
 
-      video.style.display = 'block';
-      playButton.style.display = 'none';
-      newPageButton.style.display = 'block';
+    <script>
+        let homeContent = document.getElementById('homeContent');
+        let loadingScreen1 = document.getElementById('loadingScreen1');
+        let loadingScreen2 = document.getElementById('loadingScreen2');
+        let enterButton = document.getElementById('enterButton');
 
-      // Start playing the video
-      video.play();
-    }
+        // Function to hide home content and show loading screen 1
+        function showLoadingScreen1() {
+            homeContent.classList.add('hidden');
+            loadingScreen1.classList.add('active');
+            setTimeout(function() {
+                loadingScreen1.classList.remove('active');
+                // Show the home content after 5 seconds
+                homeContent.classList.remove('hidden');
+            }, 5000);
+        }
 
-    function goToNewPage() {
-      window.location.href = 'passwordlollybye.html';
-    }
-  </script>
+        // Function to start second loading screen and redirect after 2 seconds
+        function showLoadingScreen2() {
+            homeContent.classList.add('hidden');
+            loadingScreen2.classList.add('active');
+            setTimeout(function() {
+                loadingScreen2.classList.remove('active');
+                window.location.href = 'gamepage.html'; // Redirect to another page
+            }, 2000); // 2 seconds before redirecting
+        }
+
+        // Listen for the TAB key press on desktop
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Tab') {
+                event.preventDefault(); // Prevent default tab behavior
+                showLoadingScreen2();
+            }
+        });
+
+        // Listen for the "Press to Enter" button click on mobile
+        enterButton.addEventListener('click', function() {
+            showLoadingScreen2();
+        });
+
+        // Start the first loading screen when the page loads
+        window.onload = function() {
+            showLoadingScreen1();
+        };
+    </script>
 </body>
-
 </html>
